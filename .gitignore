@@ -1,0 +1,66 @@
+# ==========================================
+# VIRTUAL ENVIRONMENTS
+# These directories contain local dependencies and binaries, which shouldn't be pushed.
+# ==========================================
+aqi_env/
+venv/
+source/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ==========================================
+# SYSTEM & CACHE FILES
+# Automatically generated OS and Python files that aren't needed in source control.
+# ==========================================
+.env
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Data / model files
+*.pkl
+*.h5
+
+# Except our specific trained models needed for the app
+!models/*.pkl
+!models/*.h5
+
+# VS Code settings
+.vscode/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# Python egg files
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+*.manifest
+*.spec
+
+# Byte-compiled / optimized / DLL files
+*.so
+*.dylib
+*.dll
+
+# Backup / temp files
+*~
+*.swp
+*.swo
+
+# Mac system files
+._*
+
+# Installer / package info
+*.egg-info/
+pip-log.txt

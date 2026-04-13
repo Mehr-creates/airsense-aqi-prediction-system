@@ -1,0 +1,8 @@
+# Streamlit Dashboard Configuration
+# This file dictates the core theme and styling structure of the dashboard UI.
+[theme]
+primaryColor = "#1E40AF"               # Main interactive element color (Navy Blue)
+backgroundColor = "#0A0F2D"            # App background color (Dark Navy)
+secondaryBackgroundColor = "#0F172A"   # Sidebar and widget background color
+textColor = "#FFFFFF"                  # Default text color (Bright White)
+font = "sans serif"                    # Global font family
