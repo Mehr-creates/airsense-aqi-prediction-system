@@ -296,7 +296,7 @@ class CorrectedAQIDashboard:
         """Render dashboard header"""
         st.markdown("""
             <div class="main-header">
-                <h1>🌿 AQI Predictor Dashboard</h1>
+                <h1>AQI Prediction System</h1>
                 <h3>by Mehr - Real-time Air Quality Monitoring & Forecasting</h3>
             </div>
         """, unsafe_allow_html=True)
@@ -344,7 +344,7 @@ class CorrectedAQIDashboard:
                     st.write(f"• {poll}: {value}")
             
             st.markdown("---")
-            st.markdown("### 🚀 Features")
+            st.markdown("### features")
             st.markdown("""
             - Real-time AQI Monitoring
             - 3-Day ML Forecasting  
