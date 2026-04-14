@@ -1,7 +1,7 @@
 # Security Group
 resource "aws_security_group" "airsense_sg" {
 
-  name        = "airsense-sg"
+  name        = "airsense-sg-v2"
   description = "Allow SSH and Streamlit access"
 
   ingress {
