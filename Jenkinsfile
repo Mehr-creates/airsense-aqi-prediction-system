@@ -52,14 +52,14 @@ pipeline {
         }
 
         stage('Run Terraform') {
-            steps {
-                sh '''
-                cd terraform
-                terraform init
-                terraform apply -auto-approve
-                '''
-            }
-        }
+        steps {
+            sh '''
+            cd terraform
+            terraform init
+            terraform apply -var="key_name=airsense-key" -auto-approve
+            '''
+    }
+}
 
         stage('Deploy on EC2') {
             steps {
