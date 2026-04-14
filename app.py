@@ -304,7 +304,7 @@ class CorrectedAQIDashboard:
     def render_sidebar(self):
         """Render sidebar controls"""
         with st.sidebar:
-            st.markdown("### 🎛️ Dashboard Controls")
+            st.markdown("###Dashboard Controls")
             
             # City selection
             cities = ["Delhi", "Ghaziabad", "Kanpur", "Ludhiana", "Mumbai", 
@@ -344,7 +344,7 @@ class CorrectedAQIDashboard:
                     st.write(f"• {poll}: {value}")
             
             st.markdown("---")
-            st.markdown("### features")
+            st.markdown("### Features")
             st.markdown("""
             - Real-time AQI Monitoring
             - 3-Day ML Forecasting  
@@ -404,7 +404,7 @@ class CorrectedAQIDashboard:
         st.plotly_chart(gauge_fig, use_container_width=True)
         
         # Additional pollutants
-        st.markdown("#### 🧪 Pollutants Concentration")
+        st.markdown("####Pollutants Concentration")
         pollutants_data = {
             'Pollutant': ['PM2.5', 'PM10', 'NO2', 'SO2', 'CO', 'O3'],
             'Value': [
@@ -640,7 +640,7 @@ class CorrectedAQIDashboard:
             
     def render_research_results(self):
         """Render the Research Results section with publication-ready charts"""
-        st.markdown("### 🔬 Research Results & Visualizations")
+        st.markdown("###Research Results & Visualizations")
         st.markdown("These visualizations are evaluated on the held-out test dataset (20%).")
         
         if st.session_state.model_performance is None:
