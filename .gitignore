@@ -64,3 +64,12 @@ eggs/
 # Installer / package info
 *.egg-info/
 pip-log.txt
+
+# devops pipeline
+# Terraform
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+*.pem
+*.tfvars
+.env
