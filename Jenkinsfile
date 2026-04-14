@@ -25,16 +25,9 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build & Push Docker Image (AMD64)') {
             steps {
-                sh '''
-                docker build -t airsense-app .
-                '''
-            }
-        }
 
-        stage('Push Docker Image') {
-            steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-creds',
                     usernameVariable: 'DOCKER_USER',
@@ -44,27 +37,34 @@ pipeline {
                     sh '''
                     echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
 
-                    docker tag airsense-app $DOCKER_IMAGE
-                    docker push $DOCKER_IMAGE
+                    docker buildx build \
+                      --platform linux/amd64 \
+                      -t $DOCKER_IMAGE \
+                      --push \
+                      .
                     '''
                 }
             }
         }
 
         stage('Run Terraform') {
-        steps {
-            sh '''
-            cd terraform
-            terraform init
-            terraform apply -var="key_name=airsense-key" -auto-approve
-            '''
-    }
-}
+            steps {
+                sh '''
+                cd terraform
+
+                terraform init
+
+                terraform apply \
+                  -var="key_name=airsense-key" \
+                  -auto-approve
+                '''
+            }
+        }
 
         stage('Deploy on EC2') {
             steps {
                 sh '''
-                echo "Deployment completed"
+                echo "Deployment completed successfully"
                 '''
             }
         }
