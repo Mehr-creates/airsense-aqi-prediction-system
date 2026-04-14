@@ -35,15 +35,23 @@ pipeline {
                 )]) {
 
                     sh '''
+                    # Clean old Docker login
                     docker logout || true
 
-                    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    # Login to DockerHub
+                    echo "$DOCKER_PASS" | docker login \
+                        -u "$DOCKER_USER" \
+                        --password-stdin
 
+                    # Ensure buildx exists
+                    docker buildx create --use || true
+
+                    # Build for EC2 architecture and push
                     docker buildx build \
-                      --platform linux/amd64 \
-                      -t $DOCKER_IMAGE \
-                      --push \
-                      .
+                        --platform linux/amd64 \
+                        -t $DOCKER_IMAGE \
+                        --push \
+                        .
                     '''
                 }
             }
@@ -57,8 +65,8 @@ pipeline {
                 terraform init
 
                 terraform apply \
-                  -var="key_name=airsense-key" \
-                  -auto-approve
+                    -var="key_name=airsense-key" \
+                    -auto-approve
                 '''
             }
         }
