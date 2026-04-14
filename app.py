@@ -139,6 +139,8 @@ st.markdown("""
     section[data-testid="stSidebar"] * {
         color: #F8FAFC !important;
     }
+    
+    footer {visibility: hidden !important;}
 </style>
 """, unsafe_allow_html=True)
 # Load custom CSS with better error handling
@@ -297,7 +299,7 @@ class CorrectedAQIDashboard:
         st.markdown("""
             <div class="main-header">
                 <h1>AQI Prediction System</h1>
-                <h3>by Mehr - Real-time Air Quality Monitoring & Forecasting</h3>
+                <h3>Real-time Air Quality Monitoring & Forecasting</h3>
             </div>
         """, unsafe_allow_html=True)
     
@@ -679,8 +681,7 @@ class CorrectedAQIDashboard:
         st.markdown("---")
         st.markdown("""
             <div class="footer">
-                <p>AQI Predictor Dashboard by Mehr | Built with Streamlit & Machine Learning</p>
-                <p>Real-time Air Quality Monitoring & Forecasting System</p>
+                <p>Real-time Air Quality Monitoring & Forecasting System using Machine Learning and Deep Learning. Built by Mehr</p>
             </div>
         """, unsafe_allow_html=True)
     
