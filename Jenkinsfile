@@ -35,6 +35,8 @@ pipeline {
                 )]) {
 
                     sh '''
+                    docker logout || true
+
                     echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
 
                     docker buildx build \
