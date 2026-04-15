@@ -96,8 +96,6 @@ pipeline {
                 -p 8501:8501 \
                 --name airsense-app \
                 mehrcreates/airsense-app:latest
-
-            EOF
             '''
         }
     }
