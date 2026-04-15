@@ -85,14 +85,14 @@ pipeline {
 
             ssh -o StrictHostKeyChecking=no \
                 -i $SSH_KEY \
-                ubuntu@65.0.85.64 << EOF
+                ubuntu@65.0.85.64 << 'EOF'
 
-            docker pull mehrcreates/airsense-app:latest
+            sudo docker pull mehrcreates/airsense-app:latest
 
-            docker stop airsense-app || true
-            docker rm airsense-app || true
+            sudo docker stop airsense-app || true
+            sudo docker rm airsense-app || true
 
-            docker run -d \
+            sudo docker run -d \
                 -p 8501:8501 \
                 --name airsense-app \
                 mehrcreates/airsense-app:latest
