@@ -72,25 +72,27 @@ pipeline {
 
         stage('Deploy on EC2') {
             steps {
-                sshagent(['airsense-key']) {
-                    sh '''
-                    ssh -o StrictHostKeyChecking=no ubuntu@65.0.85.64 << EOF
+                sh '''
+                echo "Deploying on EC2..."
 
-                    docker pull mehrcreates/airsense-app:latest
+                ssh -o StrictHostKeyChecking=no \
+                    -i airsense-key.pem \
+                    ubuntu@65.0.85.64 << EOF
 
-                    docker stop airsense-app || true
-                    docker rm airsense-app || true
+                docker pull mehrcreates/airsense-app:latest
 
-                    docker run -d \
-                        -p 8501:8501 \
-                        --name airsense-app \
-                        mehrcreates/airsense-app:latest
+                docker stop airsense-app || true
+                docker rm airsense-app || true
 
-                    EOF
-                    '''
-                }
-            }
-        }
+                docker run -d \
+                    -p 8501:8501 \
+                    --name airsense-app \
+                    mehrcreates/airsense-app:latest
+
+                EOF
+                '''
+    }
+}
 
     }
 }
