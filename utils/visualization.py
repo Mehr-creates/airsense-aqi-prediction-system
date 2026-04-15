@@ -12,52 +12,75 @@ class AQIVisualizer:
     def __init__(self):
         # Dark Navy Blue Color Scheme
         self.colors = {
-            'primary': '#1E40AF',      # Navy Blue
-            'secondary': '#3B82F6',    # Royal Blue
-            'accent': '#60A5FA',       # Light Blue
-            'background': '#0F172A',   # Dark Navy
-            'card_bg': '#1E293B',      # Card Background
-            'text': '#E8EAFF',         # Light Text
-            'text_secondary': '#94A3B8', # Secondary Text
-            'success': '#10B981',      # Emerald Green
-            'warning': '#F59E0B',      # Amber
-            'danger': '#EF4444',       # Red
-            'grid': '#374151'          # Grid Lines
+            'primary': '#2563eb',
+            'secondary': '#3b82f6',
+            'accent': '#60a5fa',
+            'background': '#0f172a',
+            'card_bg': '#111827',
+            'text': '#e5e7eb',
+            'text_secondary': '#9ca3af',
+            'success': '#16a34a',
+            'warning': '#f59e0b',
+            'danger': '#ef4444',
+            'grid': '#1f2937'
         }
     
     def create_gauge_chart(self, aqi_value):
-        """Create AQI gauge chart with new colors"""
+        """Create AQI gauge chart with clean zones"""
         fig = go.Figure(go.Indicator(
-            mode = "gauge+number+delta",
+            mode = "gauge+number",
             value = aqi_value,
             domain = {'x': [0, 1], 'y': [0, 1]},
-            title = {'text': "Current AQI", 'font': {'color': self.colors['text'], 'size': 24, 'family': 'Inter'}},
-            delta = {'reference': 2.5, 'increasing': {'color': self.colors['danger']}},
             gauge = {
-                'axis': {'range': [1, 5], 'tickwidth': 1, 'tickcolor': self.colors['text'], 'tickfont': {'color': self.colors['text']}},
-                'bar': {'color': self.colors['primary']},
+                'axis': {'range': [1, 5], 'tickwidth': 1, 'tickcolor': self.colors['grid'], 'tickfont': {'color': self.colors['text_secondary']}},
+                'bar': {'color': 'rgba(0,0,0,0)'},
                 'bgcolor': self.colors['card_bg'],
-                'borderwidth': 2,
-                'bordercolor': self.colors['primary'],
                 'steps': [
                     {'range': [1, 2], 'color': self.colors['success']},
                     {'range': [2, 3], 'color': self.colors['warning']},
-                    {'range': [3, 5], 'color': self.colors['danger']}],
+                    {'range': [3, 4], 'color': self.colors['danger']},
+                    {'range': [4, 5], 'color': '#7f1d1d'}],
                 'threshold': {
                     'line': {'color': self.colors['text'], 'width': 4},
                     'thickness': 0.75,
-                    'value': 4.5}}))
+                    'value': aqi_value}}))
         
         fig.update_layout(
-            paper_bgcolor=self.colors['background'],
-            plot_bgcolor=self.colors['card_bg'],
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
             font={'color': self.colors['text'], 'family': "Inter"},
-            height=350,
-            margin=dict(l=50, r=50, t=80, b=50)
+            height=250,
+            margin=dict(l=30, r=30, t=30, b=30)
         )
         
         return fig
     
+    def create_mini_trend(self, historical_data):
+        """Create a minimal 24-hr trend chart"""
+        df = historical_data.tail(24) if len(historical_data) >= 24 else historical_data
+        fig = go.Figure()
+        
+        fig.add_trace(go.Scatter(
+            x=df['date'] if 'date' in df.columns else df.index,
+            y=df['aqi'],
+            mode='lines',
+            line=dict(color=self.colors['primary'], width=3),
+            fill='tozeroy',
+            fillcolor='rgba(37, 99, 235, 0.1)'
+        ))
+        
+        fig.update_layout(
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            font=dict(color=self.colors['text'], family="Inter"),
+            height=250,
+            xaxis=dict(showgrid=True, gridcolor=self.colors['grid'], showticklabels=False, zeroline=False),
+            yaxis=dict(showgrid=True, gridcolor=self.colors['grid'], zeroline=False),
+            margin=dict(l=10, r=10, t=20, b=10),
+            showlegend=False
+        )
+        return fig
+
     def create_historical_trend(self, historical_data):
         """Create historical AQI trend chart with new colors"""
         fig = go.Figure()

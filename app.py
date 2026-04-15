@@ -14,137 +14,7 @@ from utils.visualization import AQIVisualizer
 from utils.feature_store import FeatureStoreManager
 from utils.explainability import ModelExplainer, AlertSystem
 
-st.markdown("""
-<style>
-/* =============== Selectbox main field =============== */
-div[data-baseweb="select"] > div {
-    background-color: #0F172A !important;
-    color: #FFFFFF !important;
-    border-radius: 8px !important;
-    border: 1px solid #1E3A8A !important;
-}
 
-/* =============== Dropdown Menu (the white box) =============== */
-div[data-baseweb="popover"] {
-    background-color: #0F172A !important;
-    border: 1px solid #1E3A8A !important;
-    border-radius: 10px !important;
-}
-
-/* =============== Dropdown option list =============== */
-ul[role="listbox"] {
-    background-color: #0F172A !important;
-    color: #FFFFFF !important;
-    border-radius: 10px !important;
-}
-
-/* =============== Each option item =============== */
-ul[role="listbox"] li {
-    color: #FFFFFF !important;
-    background-color: #0F172A !important;
-}
-
-/* =============== Hover effect =============== */
-ul[role="listbox"] li:hover {
-    background-color: #1E3A8A !important;
-    color: #FFFFFF !important;
-    cursor: pointer;
-}
-
-/* =============== Scrollbar (optional) =============== */
-ul[role="listbox"]::-webkit-scrollbar {
-    width: 8px;
-}
-ul[role="listbox"]::-webkit-scrollbar-thumb {
-    background-color: #1E3A8A;
-    border-radius: 10px;
-}
-
-/* Extra text color fix for hidden elements */
-div[data-baseweb="select"] span {
-    color: #FFFFFF !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# Fix dropdown visibility (Select City styling)
-st.markdown("""
-<style>
-/* Dropdown container */
-[data-baseweb="select"] {
-    background-color: #0F172A !important;
-    color: #FFFFFF !important;
-    border-radius: 8px !important;
-}
-
-/* Dropdown text */
-[data-baseweb="select"] * {
-    color: #FFFFFF !important;
-}
-
-/* Dropdown menu */
-[data-testid="stSelectbox"] div[role="listbox"] {
-    background-color: #0F172A !important;
-    border: 1px solid #1E3A8A !important;
-    border-radius: 10px !important;
-}
-
-/* Dropdown options */
-[data-testid="stSelectbox"] div[role="option"] {
-    color: #FFFFFF !important;
-    background-color: #0F172A !important;
-}
-
-/* Hover effect */
-[data-testid="stSelectbox"] div[role="option"]:hover {
-    background-color: #1E3A8A !important;
-    color: #FFFFFF !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# Brightness boost for all text - add this after imports in app.py
-st.markdown("""
-<style>
-    /* Force brighter text everywhere */
-    [data-testid="metric-container"] label {
-        color: #FFFFFF !important;
-        font-weight: 600 !important;
-        opacity: 1 !important;
-    }
-    
-    [data-testid="metric-container"] div {
-        color: #FFFFFF !important;
-        font-weight: 700 !important;
-        font-size: 2rem !important;
-    }
-    
-    /* Brighter headers */
-    h1, h2, h3, h4, h5, h6 {
-        color: #FFFFFF !important;
-        font-weight: 700 !important;
-    }
-    
-    /* Brighter card text */
-    .stCard * {
-        color: #F8FAFC !important;
-    }
-    
-    /* Brighter alert text */
-    .stAlert * {
-        color: #FFFFFF !important;
-        font-weight: 500 !important;
-    }
-    
-    /* Brighter sidebar text */
-    section[data-testid="stSidebar"] * {
-        color: #F8FAFC !important;
-    }
-    
-    footer {visibility: hidden !important;}
-</style>
-""", unsafe_allow_html=True)
-# Load custom CSS with better error handling
 def load_css():
     try:
         with open('assets/style.css', 'r', encoding='utf-8') as f:
@@ -299,8 +169,8 @@ class CorrectedAQIDashboard:
         """Render dashboard header"""
         st.markdown("""
             <div class="main-header">
-                <h1>AQI Prediction System</h1>
-                <h3>Real-time Air Quality Monitoring & Forecasting</h3>
+                <h1>AirSense Dashboard</h1>
+                <h3>Real-Time Air Quality Monitoring & Forecasting</h3>
             </div>
         """, unsafe_allow_html=True)
     
@@ -309,7 +179,6 @@ class CorrectedAQIDashboard:
         with st.sidebar:
             st.markdown("Dashboard Controls")
             
-            # City selection
             cities = ["Delhi", "Ghaziabad", "Kanpur", "Ludhiana", "Mumbai", 
                      "Bangalore", "Chennai", "Hyderabad", "Shillong", "Goa"]
             
@@ -319,48 +188,45 @@ class CorrectedAQIDashboard:
                 index=cities.index(st.session_state.current_city) if st.session_state.current_city in cities else 0
             )
             
-            # Update button
-            if st.button("Update Data", use_container_width=True):
+            if st.button("Update Data", type="primary", use_container_width=True):
                 if self.update_data(selected_city):
                     st.session_state.current_city = selected_city
                     st.rerun()
             
             st.markdown("---")
-            st.markdown("### Quick Stats")
             
             if st.session_state.current_data is not None:
                 current_data = st.session_state.current_data
                 aqi = current_data['aqi']
                 status, color = self.get_aqi_status(aqi)
                 
-                st.metric("Current AQI", f"{aqi:.1f}", status)
+                st.markdown("### Location Summary")
+                st.markdown(f"<div class='sidebar-city'>{st.session_state.current_city}, India</div>", unsafe_allow_html=True)
                 
-                # Pollutants summary
-                st.markdown("**Pollutants Level:**")
-                pollutants = {
-                    "PM2.5": f"{current_data['pm2_5']:.1f} μg/m³",
-                    "PM10": f"{current_data['pm10']:.1f} μg/m³", 
-                    "NO2": f"{current_data['no2']:.1f} μg/m³"
-                }
+                if st.session_state.last_update is not None:
+                    # Provide an IST format approx
+                    st.markdown(f"<div class='last-updated'>Last updated: {st.session_state.last_update.strftime('%H:%M')} IST</div>", unsafe_allow_html=True)
                 
-                for poll, value in pollutants.items():
-                    st.write(f"• {poll}: {value}")
-            
-            st.markdown("---")
-            st.markdown("### Features")
-            st.markdown("""
-            - Real-time AQI Monitoring
-            - 3-Day ML Forecasting  
-            - Historical Data Analysis
-            - Multiple AI Models
-            - Interactive Visualizations
-            - Hazardous Alerts
-            - Model Explainability
-            """)
-            
-            # Last update time
-            if st.session_state.last_update is not None:
-                st.markdown(f"**Last Updated:** {st.session_state.last_update.strftime('%Y-%m-%d %H:%M:%S')}")
+                st.markdown(f"<div class='sidebar-aqi'>{aqi:.1f}</div>", unsafe_allow_html=True)
+                st.markdown(f"<div class='sidebar-status status-{status.lower()}'>{status}</div>", unsafe_allow_html=True)
+                
+                st.markdown("<br>", unsafe_allow_html=True)
+                st.markdown("**Core Pollutants**")
+                
+                st.markdown(f"""
+                <div class='sidebar-pollutant'>
+                    <span>PM2.5</span>
+                    <span>{current_data['pm2_5']:.1f} µg/m³</span>
+                </div>
+                <div class='sidebar-pollutant'>
+                    <span>PM10</span>
+                    <span>{current_data['pm10']:.1f} µg/m³</span>
+                </div>
+                <div class='sidebar-pollutant'>
+                    <span>NO2</span>
+                    <span>{current_data['no2']:.1f} µg/m³</span>
+                </div>
+                """, unsafe_allow_html=True)
     
     def get_aqi_status(self, aqi_value):
         """Get AQI status and color"""
@@ -375,9 +241,6 @@ class CorrectedAQIDashboard:
     
     def render_current_aqi(self):
         """Render current AQI section"""
-        st.markdown("### Current Air Quality")
-        
-        # Check if data exists properly
         if st.session_state.current_data is None:
             st.warning("No current data available. Please update data first.")
             return
@@ -386,43 +249,50 @@ class CorrectedAQIDashboard:
         aqi_value = current_data['aqi']
         status, color = self.get_aqi_status(aqi_value)
         
-        # Key metrics in columns
-        col1, col2, col3, col4 = st.columns(4)
+        # Hero AQI Card
+        st.markdown(f"""
+        <div class="hero-card">
+            <div class="hero-title">Current AQI</div>
+            <div class="hero-value">{aqi_value:.1f}</div>
+            <div class="hero-status status-{status.lower()}">{status}</div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        col1, col2 = st.columns(2)
         
         with col1:
-            st.metric("Current AQI", f"{aqi_value:.1f}", status)
-        
+            st.markdown("#### AQI Level Gauge")
+            gauge_fig = self.visualizer.create_gauge_chart(aqi_value)
+            st.plotly_chart(gauge_fig, use_container_width=True)
+            
         with col2:
-            st.metric("PM2.5", f"{current_data['pm2_5']:.1f} μg/m³")
+            st.markdown("#### 24-Hour Trend")
+            if st.session_state.historical_data is not None and not st.session_state.historical_data.empty:
+                trend_fig = self.visualizer.create_mini_trend(st.session_state.historical_data)
+                st.plotly_chart(trend_fig, use_container_width=True)
+            else:
+                st.info("No historical data available for trend")
+                
+        st.markdown("#### Pollutants Breakdown")
         
-        with col3:
-            st.metric("PM10", f"{current_data['pm10']:.1f} μg/m³")
+        cols = st.columns(3)
+        pollutants = [
+            ("PM2.5", current_data['pm2_5']),
+            ("PM10", current_data['pm10']),
+            ("NO2", current_data['no2']),
+            ("SO2", current_data['so2']),
+            ("CO", current_data['co']),
+            ("O3", current_data['o3'])
+        ]
         
-        with col4:
-            st.metric("Air Quality", status)
-        
-        # Gauge chart
-        st.markdown("#### AQI Level Gauge")
-        gauge_fig = self.visualizer.create_gauge_chart(aqi_value)
-        st.plotly_chart(gauge_fig, use_container_width=True)
-        
-        # Additional pollutants
-        st.markdown("####Pollutants Concentration")
-        pollutants_data = {
-            'Pollutant': ['PM2.5', 'PM10', 'NO2', 'SO2', 'CO', 'O3'],
-            'Value': [
-                current_data['pm2_5'],
-                current_data['pm10'], 
-                current_data['no2'],
-                current_data['so2'],
-                current_data['co'],
-                current_data['o3']
-            ],
-            'Unit': ['μg/m³', 'μg/m³', 'μg/m³', 'μg/m³', 'μg/m³', 'μg/m³']
-        }
-        
-        pollutants_df = pd.DataFrame(pollutants_data)
-        st.dataframe(pollutants_df, use_container_width=True, hide_index=True)
+        for i, (name, val) in enumerate(pollutants):
+            with cols[i % 3]:
+                st.markdown(f"""
+                <div class="pollutant-card">
+                    <div class="pollutant-name">{name}</div>
+                    <div class="pollutant-value">{val:.1f} µg/m³</div>
+                </div>
+                """, unsafe_allow_html=True)
     
     def render_forecast(self):
         """Render forecast section"""

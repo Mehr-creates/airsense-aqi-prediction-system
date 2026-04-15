@@ -1,560 +1,243 @@
-/* Maryam's Dashboard Styling - Black & Navy Blue Theme */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* Minimal, Professional AQI Dashboard Theme */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* ==========================================
- * MAIN BACKGROUND & STRUCTURAL THEME
- * Defines the core color palette and typography.
- * The primary aesthetic uses a Black & Navy Blue gradient.
- * ========================================== */
 .stApp {
-    background: linear-gradient(135deg, #000000 0%, #0A0F2D 50%, #000000 100%) !important;
-    font-family: 'Inter', sans-serif;
+    background-color: #0f172a !important;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #e5e7eb;
 }
 
-/* 
- * Header Styling 
- * Creates a prominent title area with shadow for depth.
- */
+* {
+    color: #e5e7eb;
+}
+
+/* Header */
 .main-header {
-    background: linear-gradient(90deg, #000000 0%, #1E3A8A 50%, #000000 100%) !important;
-    padding: 2.5rem;
-    border-radius: 20px;
-    margin-bottom: 2rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-    border: 1px solid #1E40AF;
+    background-color: #111827;
+    padding: 1.5rem;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #1f2937;
+    text-align: left;
 }
 
 .main-header h1 {
-    color: #FFFFFF !important;
+    font-size: 28px;
     font-weight: 700;
-    text-align: center;
     margin: 0;
-    font-size: 2.8rem;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    color: #e5e7eb !important;
+    padding: 0;
+    border: none;
 }
 
 .main-header h3 {
-    color: #FFFFFF !important;
-    text-align: center;
-    margin: 0.5rem 0 0 0;
+    font-size: 14px;
     font-weight: 400;
-    font-size: 1.3rem;
-    opacity: 0.9;
-}
-
-/* Card Styling - Navy Blue */
-.stCard {
-    background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%) !important;
-    border-radius: 16px;
-    padding: 2rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-    border: 1px solid #1E40AF;
-    margin-bottom: 1.5rem;
-}
-
-/* ===== BRIGHT METRIC STYLING ===== */
-[data-testid="metric-container"] {
-    background: linear-gradient(135deg, #1E3A8A 0%, #000000 100%) !important;
-    border-radius: 16px;
-    padding: 1.5rem;
-    box-shadow: 0 6px 20px rgba(30, 58, 138, 0.6);
-    border: 1px solid #1E40AF;
-}
-
-[data-testid="metric-container"] label {
-    color: #FFFFFF !important;
-    font-weight: 700;
-    font-size: 1.1rem;
-    opacity: 1 !important;
-}
-
-[data-testid="metric-container"] div {
-    color: #FFFFFF !important;
-    font-weight: 800;
-    font-size: 2.2rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-/* Metric delta values */
-[data-testid="metric-container"] [data-testid="stMetricDelta"] {
-    color: #FFFFFF !important;
-    font-weight: 700;
-    font-size: 1.1rem;
-}
-
-/* Button Styling */
-.stButton button {
-    background: linear-gradient(90deg, #000000 0%, #1E40AF 100%) !important;
-    color: #FFFFFF !important;
+    margin: 4px 0 0 0;
+    color: #9ca3af !important;
+    padding: 0;
     border: none;
-    border-radius: 12px;
-    padding: 0.75rem 2rem;
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: #111827 !important;
+    border-right: 1px solid #1f2937 !important;
+}
+
+section[data-testid="stSidebar"] * {
+    color: #e5e7eb !important;
+}
+
+.sidebar-city {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.last-updated {
+    font-size: 12px;
+    color: #9ca3af !important;
+    margin-bottom: 16px;
+}
+
+.sidebar-aqi {
+    font-size: 48px;
     font-weight: 700;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(30, 64, 175, 0.6);
-    font-size: 1rem;
-    width: 100%;
-    border: 1px solid #1E40AF;
+    line-height: 1;
 }
 
-.stButton button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(30, 64, 175, 0.8);
-    background: linear-gradient(90deg, #1E40AF 0%, #000000 100%) !important;
+.sidebar-status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 8px;
 }
 
-/* Tab Styling */
+.sidebar-pollutant {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    padding: 8px 0;
+    border-bottom: 1px solid #1f2937;
+}
+
+.sidebar-pollutant span:last-child {
+    font-weight: 600;
+}
+
+/* Status colors */
+.status-good { background-color: rgba(22, 163, 74, 0.2); color: #16a34a !important; border: 1px solid rgba(22, 163, 74, 0.5); }
+.status-moderate { background-color: rgba(245, 158, 11, 0.2); color: #f59e0b !important; border: 1px solid rgba(245, 158, 11, 0.5); }
+.status-unhealthy { background-color: rgba(239, 68, 68, 0.2); color: #ef4444 !important; border: 1px solid rgba(239, 68, 68, 0.5); }
+.status-hazardous { background-color: rgba(220, 38, 38, 0.2); color: #dc2626 !important; border: 1px solid rgba(220, 38, 38, 0.5); }
+
+/* Hero Card */
+.hero-card {
+    background-color: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-title {
+    font-size: 16px;
+    color: #9ca3af !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+}
+
+.hero-value {
+    font-size: 64px;
+    font-weight: 700;
+    margin: 8px 0;
+    line-height: 1;
+}
+
+.hero-status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Pollutant Cards */
+.pollutant-card {
+    background-color: #111827;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.pollutant-name {
+    font-size: 14px;
+    color: #9ca3af !important;
+    margin-bottom: 8px;
+}
+
+.pollutant-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: #e5e7eb !important;
+}
+
+/* Tabs */
 .stTabs [data-baseweb="tab-list"] {
-    gap: 1rem;
-    background: transparent;
-    border-bottom: 2px solid #1E40AF;
-    padding-bottom: 0.5rem;
+    gap: 8px;
+    background-color: transparent;
+    padding-bottom: 16px;
 }
 
 .stTabs [data-baseweb="tab"] {
-    background: #000000;
-    border-radius: 12px 12px 0 0;
-    padding: 1rem 2rem;
-    font-weight: 700;
-    color: #FFFFFF;
-    border: 1px solid #1E40AF;
-    border-bottom: none;
-    transition: all 0.3s ease;
+    background-color: #1f2937;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #9ca3af;
+    border: none !important;
+    margin-right: 8px;
+    box-shadow: none !important;
 }
 
 .stTabs [data-baseweb="tab"]:hover {
-    background: #1E293B;
-    color: #FFFFFF;
+    background-color: #374151;
+    color: #e5e7eb;
 }
 
 .stTabs [aria-selected="true"] {
-    background: linear-gradient(90deg, #000000 0%, #1E40AF 100%) !important;
-    color: #FFFFFF !important;
-    border-color: #1E40AF !important;
-    box-shadow: 0 4px 15px rgba(30, 64, 175, 0.6);
+    background-color: #2563eb !important;
+    color: #ffffff !important;
 }
 
-/* ==========================================
- * SIDEBAR NAVIGATION STYLING
- * Configures the leftmost sidebar with a distinct gradient
- * to visually separate it from the main content.
- * ========================================== */
-section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #000000 0%, #0A0F2D 100%) !important;
-    border-right: 2px solid #1E40AF;
+/* Selectbox */
+.stSelectbox label, .stSelectbox div {
+    color: #e5e7eb !important;
 }
 
-section[data-testid="stSidebar"]>div {
-    background: transparent !important;
+div[data-baseweb="select"] > div {
+    background-color: #111827 !important;
+    border: 1px solid #1f2937 !important;
+    border-radius: 6px;
 }
 
-/* Sidebar Text - Bright White */
-section[data-testid="stSidebar"] * {
-    color: #FFFFFF !important;
+div[data-baseweb="popover"] {
+    background-color: #111827 !important;
+    border: 1px solid #1f2937 !important;
+    border-radius: 6px;
 }
 
-section[data-testid="stSidebar"] h1,
-section[data-testid="stSidebar"] h2,
-section[data-testid="stSidebar"] h3,
-section[data-testid="stSidebar"] h4,
-section[data-testid="stSidebar"] h5,
-section[data-testid="stSidebar"] h6 {
-    color: #FFFFFF !important;
-    border-bottom: 2px solid #1E40AF;
-    padding-bottom: 0.5rem;
-    font-weight: 700;
+ul[role="listbox"] {
+    background-color: #111827 !important;
 }
 
-/* Sidebar Metrics - Bright */
-section[data-testid="stSidebar"] [data-testid="metric-container"] {
-    background: linear-gradient(135deg, #1E3A8A 0%, #000000 100%) !important;
-    border-radius: 12px !important;
-    padding: 1rem !important;
-    margin: 0.5rem 0 !important;
-    border: 1px solid #1E40AF;
+ul[role="listbox"] li {
+    background-color: #111827 !important;
+    color: #e5e7eb !important;
 }
 
-section[data-testid="stSidebar"] [data-testid="metric-container"] label {
-    color: #FFFFFF !important;
-    font-weight: 700;
+ul[role="listbox"] li:hover {
+    background-color: #1f2937 !important;
 }
 
-section[data-testid="stSidebar"] [data-testid="metric-container"] div {
-    color: #FFFFFF !important;
-    font-weight: 800;
-    font-size: 1.6rem;
-}
-
-/* ==========================================
- * MAIN CONTENT GLOBAL TEXT RULES
- * Ensures high contrast by forcing text elements to bright white
- * against the dark backgrounds.
- * ========================================== */
-/* Main content background transparency to show gradient */
-.main .block-container {
-    background: transparent !important;
-}
-
-/* All text in main content - Bright White */
-.main .block-container,
-.main .block-container p,
-.main .block-container li,
-.main .block-container span,
-.main .block-container div {
-    color: #FFFFFF !important;
-    font-weight: 500;
-}
-
-/* Section Headers - Bright White */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: #FFFFFF !important;
-    border-bottom: 2px solid #1E40AF;
-    padding-bottom: 0.5rem;
-    font-weight: 700 !important;
-}
-
-/* Specific header styles */
-h2 {
-    font-size: 1.8rem !important;
-    font-weight: 800 !important;
-    color: #FFFFFF !important;
-}
-
-h3 {
-    font-size: 1.5rem !important;
-    font-weight: 700 !important;
-    color: #FFFFFF !important;
-}
-
-/* Card content text - Bright White */
-.stCard,
-.stCard p,
-.stCard li,
-.stCard span,
-.stCard div {
-    color: #FFFFFF !important;
-    font-weight: 500;
-}
-
-/* Alert text - Bright White */
-.stAlert {
-    background: linear-gradient(135deg, #000000 0%, #1E293B 100%) !important;
-    border: 1px solid;
-    border-radius: 12px;
-}
-
-.stAlert [data-testid="stMarkdownContainer"] {
-    color: #FFFFFF !important;
-    font-weight: 600;
-}
-
-.stSuccess {
-    border-color: #10B981 !important;
-}
-
-.stWarning {
-    border-color: #F59E0B !important;
-}
-
-.stError {
-    border-color: #EF4444 !important;
-}
-
-/* Dataframe styling */
-.dataframe {
-    background: #000000 !important;
-    border: 1px solid #1E40AF !important;
-    border-radius: 12px !important;
-}
-
-.dataframe th {
-    background: #1E3A8A !important;
-    color: #FFFFFF !important;
-    font-weight: 700;
-    border: 1px solid #1E40AF !important;
-}
-
-.dataframe td {
-    background: #0F172A !important;
-    color: #FFFFFF !important;
-    border-color: #1E40AF !important;
-    font-weight: 500;
-}
-
-/* Footer Styling */
-.footer {
-    text-align: center;
-    padding: 2.5rem;
-    color: #FFFFFF !important;
-    font-weight: 600;
-    margin-top: 3rem;
-    background: linear-gradient(135deg, #000000 0%, #1E293B 100%);
-    border-radius: 16px;
-    border: 1px solid #1E40AF;
-}
-
-.footer p {
-    color: #FFFFFF !important;
-    margin: 0.25rem 0;
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-/* Layout Optimization */
-.main .block-container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    max-width: 1400px;
-}
-
-/* Progress Bar Styling */
-.stProgress>div>div {
-    background: linear-gradient(90deg, #1E40AF 0%, #000000 100%);
-}
-
-.stProgress>div {
-    background: #1E293B;
-    border-radius: 10px;
-    border: 1px solid #1E40AF;
-}
-
-/* Selectbox Styling */
-.stSelectbox label {
-    color: #FFFFFF !important;
-    font-weight: 700;
-    font-size: 1.1rem;
-}
-
-.stSelectbox div[data-baseweb="select"] {
-    background: #0F172A !important;
-    border: 1px solid #1E40AF !important;
-    border-radius: 12px;
-    color: #FFFFFF !important;
-}
-
-.stSelectbox div[data-baseweb="select"]:hover {
-    border-color: #3B82F6 !important;
-    background: #0F172A !important;
-}
-
-/* Sidebar Select Box */
-section[data-testid="stSidebar"] .stSelectbox label {
-    color: #FFFFFF !important;
-    font-weight: 700;
-}
-
-section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] {
-    background: #0F172A !important;
-    border: 1px solid #1E40AF !important;
-    border-radius: 12px !important;
-    color: #FFFFFF !important;
-}
-
-/* List items */
-section[data-testid="stSidebar"] li,
-.main .block-container li {
-    color: #FFFFFF !important;
-    margin: 0.5rem 0;
-    font-weight: 500;
-}
-
-/* Separator */
-section[data-testid="stSidebar"] hr,
-.main .block-container hr {
-    border-color: #1E40AF !important;
-    margin: 1.5rem 0 !important;
-    border-width: 2px;
-}
-
-/* Chart container background */
-.js-plotly-plot .plotly {
-    background: #000000 !important;
-    border-radius: 12px;
-    border: 1px solid #1E40AF;
-}
-
-/* Custom animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
+/* General Layout */
 .stCard {
-    animation: fadeInUp 0.6s ease-out;
+    background-color: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: #000000;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #1E40AF;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #3B82F6;
-}
-
-/* Force all text to be bright white */
-* {
-    color: #FFFFFF !important;
-}
-
-/* Specific overrides for maximum brightness */
-div,
-p,
-span,
-li,
-label,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: #FFFFFF !important;
-    font-weight: 500 !important;
-}
-
-/* Make sure metric values are extra bright */
-[data-testid="metric-container"]>div {
-    color: #FFFFFF !important;
-    font-weight: 800 !important;
-}
-
-/* 
- * OVERRIDE FALLBACKS
- * These rules use high specificity to ensure that all numbers 
- * and critical text remain bright, regardless of Streamlit updates.
- */
-[data-testid="metric-container"] div:first-child {
-    color: #FFFFFF !important;
-    font-weight: 800 !important;
-}
-
-/* 🌙 Fix Select City Dropdown - Dark Navy Theme with Dark Blue Hover */
-div[data-baseweb="select"] {
-    background-color: #0F172A !important;
-    /* dark navy background */
-    color: #fff !important;
-    /* white text */
-    border-radius: 10px !important;
-    border: 1px solid #1E3A8A !important;
-}
-
-/* Text inside dropdown */
-div[data-baseweb="select"] * {
-    color: #fff !important;
-    /* force white text inside */
-}
-
-/* Dropdown menu background */
-div[data-baseweb="popover"] div[role="listbox"] {
-    background-color: #0F172A !important;
-    /* dropdown menu dark navy */
-    border: 1px solid #1E3A8A !important;
-}
-
-/* Dropdown options */
-div[data-baseweb="option"] {
-    background-color: #0F172A !important;
-    /* dark navy background for options */
-    color: #fff !important;
-    /* white text for options */
-}
-
-/* Hover effect for dropdown options */
-div[data-baseweb="option"]:hover,
-div[data-baseweb="option"][aria-selected="true"] {
-    background-color: #1E3A8A !important;
-    /* dark blue hover */
-    color: #fff !important;
-    transition: all 0.2s ease-in-out;
-}
-
-/* Selected city in dropdown */
-div[data-baseweb="select"] span {
-    color: #fff !important;
-}
-
-/* Border and focus outline */
-div[data-baseweb="select"]:focus-within {
-    box-shadow: 0 0 0 2px #1E3A8A !important;
-}
-
-/* ===== FINAL FIX: Select City Dropdown (Dark Navy + Neon Blue) ===== */
-
-/* Dropdown background and border */
-div[data-baseweb="select"] {
-    background-color: #0F172A !important;
-    /* dark navy background */
-    border: 2px solid #1E3A8A !important;
-    /* neon blue border */
-    border-radius: 12px !important;
-    color: #FFFFFF !important;
-    box-shadow: 0 0 10px rgba(30, 58, 138, 0.6);
-}
-
-/* Text inside selectbox */
-div[data-baseweb="select"] * {
-    color: #FFFFFF !important;
-}
-
-/* Dropdown menu (listbox) */
-div[data-baseweb="popover"] div[role="listbox"] {
-    background-color: #0F172A !important;
-    border: 2px solid #1E3A8A !important;
-    border-radius: 10px !important;
-    box-shadow: 0 0 15px rgba(30, 58, 138, 0.6);
-}
-
-/* Dropdown options (list items) */
-div[data-baseweb="option"] {
-    background-color: #0F172A !important;
-    color: #FFFFFF !important;
+h1, h2, h3, h4, h5, h6 {
+    border-bottom: none !important;
+    color: #e5e7eb !important;
     font-weight: 600 !important;
-    font-size: 1rem !important;
-    padding: 10px 14px !important;
-    transition: all 0.3s ease-in-out;
 }
 
-/* Hover & selected option effect */
-div[data-baseweb="option"]:hover,
-div[data-baseweb="option"][aria-selected="true"] {
-    background-color: #1E3A8A !important;
-    color: #FFFFFF !important;
-    text-shadow: 0 0 8px #3B82F6;
-    transform: scale(1.02);
+hr {
+    border-color: #1f2937 !important;
 }
 
-/* Selected city text */
-div[data-baseweb="select"] span {
-    color: #FFFFFF !important;
-    font-weight: 600;
+button[kind="primary"] {
+    background-color: #2563eb !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
 }
 
-/* Focus outline */
-div[data-baseweb="select"]:focus-within {
-    box-shadow: 0 0 15px rgba(30, 58, 138, 0.8) !important;
-    border-color: #3B82F6 !important;
+button[kind="primary"]:hover {
+    background-color: #1d4ed8 !important;
 }
-
-/* Debug border removed */
