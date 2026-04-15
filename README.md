@@ -1,174 +1,148 @@
-AQI Predictor Dashboard
+# AirSense: Real-Time AQI Monitoring and Prediction System
 
-Author: Mehr Chawla
-Tech Stack: Python, Streamlit, Machine Learning, TensorFlow, OpenWeather API
+**Author**: Mehr Chawla  
+**Role**: Technology-focused problem solver | AI and Backend Developer  
+**Status**: Portfolio-Ready / Academic Research Prototype  
 
-Table of Contents
-Overview
-Features
-System Architecture
-Installation
-Usage
-Machine Learning Models
-Project Structure
-Results & Performance
-Contributing
-Support & Contact
-Acknowledgments
-Overview
+## Overview
+AirSense is a real-time Air Quality Index (AQI) monitoring and short-term prediction system designed to transform raw environmental data into actionable insights. While most systems only display current AQI levels, AirSense extends this functionality by forecasting future values using advanced machine learning and deep learning architectures. By integrating live data from the OpenWeatherMap API with historical pollution patterns, AirSense employs a hybrid modeling approach to generate reliable short-term forecasts, visualized through an intuitive, interactive dashboard.
 
-AirSense is a real-time Air Quality Index (AQI) monitoring and short-term prediction system designed to make air quality data easier to understand and act on.Most systems only display current AQI levels, while AirSense extends functionality by predicting future AQI values using machine learning and deep learning models.It integrates live weather data, historical pollution data, and time-series modeling to generate reliable short-term forecasts.
+## Features
+* **Real-Time Monitoring**: Live tracking of environmental pollutants and AQI levels.
+* **Hybrid ML Architecture**: Utilizes XGBoost and LightGBM for structured data and LSTM for temporal forecasting.
+* **Time-Series Forecasting**: Deep learning capabilities to predict future air quality trends.
+* **Interactive Dashboard**: Built with Streamlit for seamless data exploration and visualization.
+* **Automated DevOps Pipeline**: Fully containerized and deployed via a modern CI/CD workflow.
+* **Scalable Backend**: Modular data preprocessing and feature engineering pipelines.
 
-The system uses XGBoost and LightGBM for structured prediction tasks and an LSTM model for time-based forecasting.Results are visualized through an interactive Streamlit dashboard that enables users to explore pollutant trends, monitor AQI changes, and view predictive outputs.
+## Tech Stack
+| Category | Technologies |
+| :--- | :--- |
+| Languages | Python |
+| Frontend/UI | Streamlit |
+| Machine Learning | XGBoost, LightGBM, TensorFlow (LSTM), Scikit-learn |
+| APIs & Data | OpenWeatherMap API, Pandas, NumPy |
+| DevOps & Infrastructure | Docker, Jenkins, Terraform, AWS EC2, GitHub |
 
-AirSense was developed as both an academic research project and a functional prototype for intelligent environmental monitoring systems.
+## System Architecture
+AirSense follows a modular pipeline designed for scalability, separating data ingestion from the high-performance inference engine.
 
-Features
-Real-time AQI monitoring using live environmental data
-Short-term AQI prediction using machine learning models
-Time-series forecasting using LSTM neural networks
-Hybrid modeling approach using XGBoost, LightGBM, and LSTM
-Interactive Streamlit dashboard for visualization
-Offline training pipeline for model retraining
-Data preprocessing and feature engineering workflow
-Modular architecture supporting scalability and extension
-API-based environmental data integration
-Visual trend analysis for pollutant levels
-System Architecture
+**Architectural Components:**
+* **Data Ingestion**: Fetches real-time environmental and weather metrics via the OpenWeatherMap API.
+* **Data Preprocessing**: Handles missing values, feature scaling (Normalization/Standardization), and formatting for sequential processing.
+* **ML Prediction Engine**: 
+  * **XGBoost and LightGBM**: Handle non-linear relationships in structured environmental features.
+  * **LSTM**: A recurrent neural network (RNN) layer that captures temporal dependencies.
+* **Visualization Layer**: A Streamlit-based interface that renders current stats and predictive charts.
+* **Deployment**: Containerized via Docker and hosted on AWS EC2.
 
-AirSense follows a modular pipeline that separates data ingestion, processing, modeling, and visualization to improve maintainability and scalability.
+![System Architecture](docs/architecture.png)
 
-Workflow Overview
-Data Collection
-Environmental and weather data fetched from APIs such as OpenWeatherMap
-Historical AQI datasets used for model training
-Data Preprocessing
-Handling missing values
-Feature engineering
-Data scaling and normalization
-Dataset formatting for ML and LSTM models
-Model Training
-XGBoost and LightGBM trained on structured features
-LSTM trained on sequential time-series data
-Trained models saved for reuse during inference
-Prediction Layer
-Processed live data passed into trained models
-Short-term AQI predictions generated
-Visualization Layer
+## DevOps and Deployment Pipeline
+This project implements a robust CI/CD workflow to ensure automated testing and seamless deployment.
 
-Streamlit dashboard displays:
+**CI/CD Workflow:**
+1. **Version Control**: Developer pushes code to GitHub.
+2. **Automation Trigger**: A GitHub Webhook triggers a build job in Jenkins.
+3. **Containerization**: Jenkins builds a Docker image containing the application environment.
+4. **Registry**: The image is pushed to Docker Hub for versioned storage.
+5. **Infrastructure as Code (IaC)**: Terraform provisions and manages the AWS EC2 instance.
+6. **Deployment**: The Docker container is automatically pulled and deployed on the EC2 instance.
+7. **Access**: The Streamlit app runs live on the public IP.
 
-Current AQI
-Historical trends
-Predicted AQI values
-Pollutant comparisons
-Installation
-1. Clone the Repository
-git clone https://github.com/Mehr-creates/airsense-aqi-prediction-system.git
-cd airsense-aqi-prediction-system
-2. Create Virtual Environment
-python -m venv venv
+![CI/CD Pipeline](docs/pipeline.png)
 
-Activate the environment:
+## Dashboard Preview
 
-Mac/Linux
+### AQI Monitoring Dashboard
+Real-time pollutant breakdown and current air quality status.
+<p align="center">
+  <img src="<!-- REPLACE_WITH_MONITORING_DASHBOARD_IMAGE_URL -->" alt="AQI Monitoring Dashboard" width="800">
+</p>
 
-source venv/bin/activate
+### AQI Prediction View
+Visualizing short-term forecasts using the LSTM and Gradient Boosting models.
+<p align="center">
+  <img src="<!-- REPLACE_WITH_PREDICTION_VIEW_IMAGE_URL -->" alt="AQI Prediction View" width="800">
+</p>
 
-Windows
+## Live Deployment
+Access the live version of the AirSense dashboard here:
+**URL**: `http://http://airsense.viewdns.net/:8501`
 
-venv\Scripts\activate
-3. Install Dependencies
-pip install -r requirements.txt
-4. Configure API Keys
+## Machine Learning Models
+* **XGBoost**: High-performance gradient boosting for handling tabular pollutant data and feature importance ranking.
+* **LightGBM**: Optimized for speed and lower memory usage, ensuring the dashboard remains responsive during inference.
+* **LSTM (Long Short-Term Memory)**: A deep learning model specifically chosen for its ability to remember long-term dependencies in time-series data, crucial for accurate 24-hour AQI forecasting.
 
-Create a .env file and add your API credentials:
-
-OPENWEATHER_API_KEY=your_api_key_here
-5. Run the Dashboard
-streamlit run app.py
-
-The dashboard will open automatically in your browser.
-
-6. Train Models (Optional)
-
-To retrain the LSTM model offline:
-
-python offline_lstm_training.py
-Usage
-
-After launching the dashboard, users can:
-
-View current AQI values
-Explore pollutant trends
-Analyze historical air quality data
-Generate short-term AQI predictions
-Compare pollutant levels across time
-Machine Learning Models
-
-AirSense integrates multiple machine learning and deep learning models to improve predictive accuracy and reliability.
-
-XGBoost
-
-Used for structured prediction tasks involving engineered features.Provides strong performance on tabular environmental datasets.
-
-LightGBM
-
-Optimized gradient boosting model that improves training speed and scalability while maintaining prediction accuracy.
-
-LSTM (Long Short-Term Memory)
-
-Deep learning model designed for time-series forecasting.Enables sequential learning from historical AQI patterns and improves temporal prediction accuracy.
-
-Project Structure
+## Project Structure
+```plaintext
 aqi-dashboard/
-
-├── app.py
-├── offline_lstm_training.py
-├── generate_revised_diagrams.py
-├── requirements.txt
-├── README.md
-├── LICENSE
-├── .gitignore
-
-├── .streamlit/
-│   └── config.toml
-
-├── data/
-│   ├── raw/
-│   ├── processed/
-
-├── models/
+├── app.py                      # Main Streamlit application
+├── offline_lstm_training.py     # Script for retraining deep learning models
+├── generate_revised_diagrams.py # Automation script for system visuals
+├── requirements.txt             # Project dependencies
+├── Dockerfile                   # Containerization instructions
+├── main.tf                      # Terraform infrastructure configuration
+├── models/                      # Pre-trained model binaries (.pkl, .h5)
 │   ├── xgboost_model.pkl
 │   ├── lightgbm_model.pkl
-│   ├── lstm_model.h5
-
-├── utils/
+│   └── lstm_model.h5
+├── data/                        # Raw and processed datasets
+├── utils/                       # Modular helper functions
 │   ├── data_preprocessing.py
 │   ├── feature_engineering.py
-│   ├── prediction.py
-│   ├── visualization.py
-Results & Performance
+│   └── visualization.py
+└── docs/                        # Images and documentation
+```
 
-The hybrid modeling approach improves predictive robustness by combining structured learning and sequential forecasting techniques.Model outputs demonstrate reliable short-term AQI prediction capability across varying environmental conditions.Performance evaluation includes error metrics such as RMSE and MAE along with visualization-based validation.
+## Installation and Setup
 
-Contributing
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Mehr-creates/airsense-aqi-prediction-system.git
+cd airsense-aqi-prediction-system
+```
 
-Contributions are welcome.To contribute:
+### 2. Create Virtual Environment
+```bash
+python -m venv venv
+# Mac/Linux: source venv/bin/activate
+# Windows: venv\Scripts\activate
+```
 
-Fork the repository
-Create a new feature branch
-Commit your changes
-Submit a pull request
-Support & Contact
+### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
 
-For questions, feedback, or collaboration opportunities, contact:
+### 4. Configure API Keys
+Create a `.env` file in the root directory:
+```env
+OPENWEATHER_API_KEY=your_api_key_here
+```
 
-Mehr Chawla
-Email: mehrchawla314@gmail.com
+### 5. Run Locally
+```bash
+streamlit run app.py
+```
 
-GitHub: https://github.com/Mehr-creates
+## Results and Performance
+The hybrid approach balances the precision of Gradient Boosting with the temporal awareness of Recurrent Neural Networks.
+* **Metrics**: Evaluated using RMSE (Root Mean Square Error) and MAE (Mean Absolute Error).
+* **Robustness**: Demonstrated stable performance across varying environmental conditions and peak pollution periods.
 
-Acknowledgments
+## Contributing
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature/NewFeature`).
+3. Commit changes (`git commit -m 'Add some NewFeature'`).
+4. Push to the branch (`git push origin feature/NewFeature`).
+5. Submit a Pull Request.
 
-This project utilizes open-source libraries and publicly available environmental datasets.Special acknowledgment to developers of Streamlit, TensorFlow, XGBoost, LightGBM, and OpenWeatherMap API for enabling rapid development of predictive environmental systems.
+## Support and Contact
+**Mehr Chawla**
+* **Email**: mehrchawla314@gmail.com
+* **GitHub**: [https://github.com/Mehr-creates](https://github.com/Mehr-creates)
+
+## Acknowledgments
+This project utilizes open-source libraries and publicly available environmental datasets. Special acknowledgment to the developers of Streamlit, TensorFlow, XGBoost, LightGBM, and OpenWeatherMap API for enabling the development of predictive environmental systems.
