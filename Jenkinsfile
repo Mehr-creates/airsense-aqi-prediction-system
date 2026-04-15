@@ -5,6 +5,9 @@ pipeline {
         DOCKER_IMAGE = "mehrcreates/airsense-app:latest"
         AWS_ACCESS_KEY_ID = credentials('aws-access-key')
         AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
+        EC2_HOST = "65.0.85.64"
+        EC2_USER = "ubuntu"
+        EC2_KEY = "airsense-key"
     }
 
     stages {
@@ -35,18 +38,14 @@ pipeline {
                 )]) {
 
                     sh '''
-                    # Clean old Docker login
                     docker logout || true
 
-                    # Login to DockerHub
                     echo "$DOCKER_PASS" | docker login \
                         -u "$DOCKER_USER" \
                         --password-stdin
 
-                    # Ensure buildx exists
                     docker buildx create --use || true
 
-                    # Build for EC2 architecture and push
                     docker buildx build \
                         --platform linux/amd64 \
                         -t $DOCKER_IMAGE \
@@ -73,9 +72,23 @@ pipeline {
 
         stage('Deploy on EC2') {
             steps {
-                sh '''
-                echo "Deployment completed successfully"
-                '''
+                sshagent(['airsense-key']) {
+                    sh '''
+                    ssh -o StrictHostKeyChecking=no ubuntu@65.0.85.64 << EOF
+
+                    docker pull mehrcreates/airsense-app:latest
+
+                    docker stop airsense-app || true
+                    docker rm airsense-app || true
+
+                    docker run -d \
+                        -p 8501:8501 \
+                        --name airsense-app \
+                        mehrcreates/airsense-app:latest
+
+                    EOF
+                    '''
+                }
             }
         }
 
