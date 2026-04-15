@@ -1,0 +1,44 @@
+# Git
+.git
+.gitignore
+
+# Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments 
+venv
+aqi_env
+.env
+
+# Models & datasets
+models
+data
+datasets
+*.pkl
+*.joblib
+*.csv
+
+# Documentation
+docs
+*.docx
+*.pdf
+*.md
+
+# Images (not needed in container)
+*.png
+*.jpg
+*.jpeg
+
+# Terraform (not needed in image)
+terraform
+
+# Testing
+tests
+
+# Misc
+.DS_Store
+*.log
+airsense-key.pem

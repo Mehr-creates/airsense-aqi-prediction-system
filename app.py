@@ -307,7 +307,7 @@ class CorrectedAQIDashboard:
     def render_sidebar(self):
         """Render sidebar controls"""
         with st.sidebar:
-            st.markdown("###Dashboard Controls")
+            st.markdown("Dashboard Controls")
             
             # City selection
             cities = ["Delhi", "Ghaziabad", "Kanpur", "Ludhiana", "Mumbai", 
