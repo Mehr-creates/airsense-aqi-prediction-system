@@ -513,7 +513,7 @@ class CorrectedAQIDashboard:
             
     def render_research_results(self):
         """Render the Research Results section with publication-ready charts"""
-        st.markdown("###Research Results & Visualizations")
+        st.header("Research Results & Visualizations")
         st.markdown("These visualizations are evaluated on the held-out test dataset (20%).")
         
         if st.session_state.model_performance is None:
@@ -549,10 +549,10 @@ class CorrectedAQIDashboard:
     
     def render_footer(self):
         """Render dashboard footer"""
-        st.markdown("---")
         st.markdown("""
             <div class="footer">
-                <p>Real-time Air Quality Monitoring & Forecasting System using Machine Learning and Deep Learning. Built by Mehr</p>
+                Powered by Hybrid Machine Learning Models (XGBoost, LightGBM, LSTM)<br>
+                Built by Mehr Chawla
             </div>
         """, unsafe_allow_html=True)
     
